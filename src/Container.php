@@ -12,6 +12,7 @@ class Container
 
     public function set(string $key, callable $resolver): void
     {
+        echo 'Setting ' . $key . PHP_EOL;
         $this->instances[$key] = $resolver;
     }
 
@@ -28,12 +29,7 @@ class Container
 
         $reflection = new ReflectionClass($key);
         $constructor = $reflection->getConstructor();
-
-        if (is_null($constructor)) {
-            return new $key();
-        }
-
-        $parameters = $constructor->getParameters();
+        $parameters = $constructor?->getParameters() ?? [];
         $dependencies = [];
 
         foreach ($parameters as $param) {
