@@ -12,7 +12,6 @@ class Container
 
     public function set(string $key, callable $resolver): void
     {
-        echo 'Setting ' . $key . PHP_EOL;
         $this->instances[$key] = $resolver;
     }
 
