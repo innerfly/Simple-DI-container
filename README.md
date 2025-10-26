@@ -49,10 +49,3 @@ echo($container->get('now')->format('Y-m-d H:i:s'));
 ## How it works (brief)
 - `Container::get($class)` reflects the class constructor and recursively resolves class-typed parameters via `get()`.
 - It stores a resolver closure after the first reflection so future resolutions avoid re-reflecting.
-
-
-## Limitations (by design for simplicity)
-- Only constructor injection is supported.
-- Only class-typed parameters are autowired (scalar params, union/intersection types, generics, etc. are not supported).
-- No detection of circular dependencies.
-
