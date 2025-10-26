@@ -1,4 +1,4 @@
-# Simple DI Container (PHP 8.2)
+# Simple DI Container
 
 A tiny, reflection-based Dependency Injection container with zero external dependencies. It supports constructor autowiring for class-typed dependencies and simple manual bindings via callables.
 
@@ -12,7 +12,7 @@ Clone the repository and install the Composer autoloader (no packages are requir
 ```bash
 git clone git@github.com:innerfly/Simple-DI-container.git
 cd Simple-DI-container
-composer dump-autoload
+composer install
 ```
 
 ## Usage example
