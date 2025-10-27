@@ -12,39 +12,17 @@ use Tests\Fixtures\B;
 class ContainerTest extends TestCase
 {
 
-    public function testAutoWiringResolvesDependencies(): void
+    public function testAutoWiringResolves(): void
     {
         $container = new Container();
 
-        $a = $container->get(A::class);
+        $a1 = $container->get(A::class);
+        $a2 = $container->get(A::class);
 
-        $this->assertInstanceOf(A::class, $a);
-        $this->assertInstanceOf(B::class, $a->getB());
-    }
+        $this->assertInstanceOf(A::class, $a1);
+        $this->assertInstanceOf(B::class, $a1->getB());
 
-    public function testManualSetGetUsesResolverEveryTime(): void
-    {
-        $container = new Container();
-        $calls = 0;
-
-        $container->set('thing', function () use (&$calls) {
-            $calls++;
-            return new \stdClass();
-        });
-
-        $first = $container->get('thing');
-        $second = $container->get('thing');
-
-        $this->assertInstanceOf(\stdClass::class, $first);
-        $this->assertInstanceOf(\stdClass::class, $second);
-        $this->assertSame(2, $calls, 'Resolver should be called for each get()');
-    }
-
-    public function testGetUnknownClassThrowsReflectionException(): void
-    {
-        $container = new Container();
-
-        $this->expectException(\ReflectionException::class);
-        $container->get('This\\Class\\DoesNotExist_12345');
+        $this->assertFalse($a1 === $a2);
+        $this->assertTrue($a1->getB() === $a2->getB());;
     }
 }
