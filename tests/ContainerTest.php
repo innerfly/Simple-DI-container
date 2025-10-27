@@ -25,4 +25,21 @@ class ContainerTest extends TestCase
         $this->assertFalse($a1 === $a2);
         $this->assertTrue($a1->getB() === $a2->getB());;
     }
+
+    public function teManualResolves(): void
+    {
+        $container = new Container();
+
+        $container->set(A::class, fn() => new A(new B()));
+        $container->set(B::class, fn() => new B());
+
+        $a1 = $container->get(A::class);
+        $a2 = $container->get(A::class);
+
+        $this->assertInstanceOf(A::class, $a1);
+        $this->assertInstanceOf(B::class, $a1->getB());
+
+        $this->assertFalse($a1 === $a2);
+        $this->assertTrue($a1->getB() === $a2->getB());;
+    }
 }
